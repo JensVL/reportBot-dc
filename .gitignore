@@ -1,0 +1,28 @@
+# .gitignore
+
+# Hidden Vagrant-directory
+.vagrant
+
+# Backup files (e.g. Vim, Gedit, etc.)
+*~
+
+# Vagrant base boxes (you never know when someone puts one in the repository)
+*.box
+
+# VirtualBox appliances
+*.ova
+
+*.iso
+
+*.img
+
+# msi installers
+
+*.msi
+
+
+node modules bigboi
+
+/node_modules
+
+config.json
