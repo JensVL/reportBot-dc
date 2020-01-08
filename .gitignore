@@ -26,3 +26,5 @@ node modules bigboi
 /node_modules
 
 config.json
+
+*.rar
