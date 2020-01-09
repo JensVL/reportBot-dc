@@ -56,17 +56,16 @@ client.on("message", async message => {
     if (message.content === `---**OK**---`) {
         info(message,person,CN)
     }
-    // doesnt work atm need troubleshoot
+    // clear all created channels
     if (command === "clear"){
-        if (!message.member.roles.some(r=>["Administrator", "Moderator", "Admin", "Staff"].includes(r.name)) )
+        if (!message.member.roles.some(r=>["Administrator", "Moderator", "Admin", "Staff"].includes(r.name)))
             return message.reply("No permission.");
-        var CH = 1;
-        while (CH != null){
-        CH = message.guild.channels.find(c => c.name.startsWith("report-") && c.type == "text");
-        CH.delete();
-        }
+            
+            channelName = "report-";
+            message.guild.channels.forEach(channel => deleteChannel(channel,channelName));
+            return message.reply(`Cleared all channels.`);
     }
- });
+});
 
 // can be used - seemed to be less succesful for getting the channel id in time
 function getChannelID(message,CN){
@@ -75,8 +74,14 @@ function getChannelID(message,CN){
 
 // does what it says
 function getRoleID(message,role){
-    return message.guild.roles.find(r => r.name == `${role}`);
+    return message.guild.roles.find(r => r.name == role);
 
+}
+
+// delete a channel based on name
+function deleteChannel(channel,ChannelName){
+    if (channel.name.startsWith(ChannelName) && channel.type == "text")
+        channel.delete(); 
 }
 
 // main channel creation process
