@@ -9,6 +9,7 @@ var CN = null;
 var person;
 var category;
 var channelid;
+var clearcounter = 0;
 
 client.once("ready", () => {
     console.log('Ready!');
@@ -63,7 +64,9 @@ client.on("message", async message => {
             
             channelName = "report-";
             message.guild.channels.forEach(channel => deleteChannel(channel,channelName));
-            return message.reply(`Cleared all channels.`);
+            var result = clearcounter;
+            clearcounter = 0;
+            return message.reply(`Cleared ${result} channel(s).`);
     }
 });
 
@@ -80,8 +83,10 @@ function getRoleID(message,role){
 
 // delete a channel based on name
 function deleteChannel(channel,ChannelName){
-    if (channel.name.startsWith(ChannelName) && channel.type == "text")
-        channel.delete(); 
+    if (channel.name.startsWith(ChannelName) && channel.type == "text"){
+        channel.delete();
+        clearcounter++;
+    }
 }
 
 // main channel creation process
@@ -140,7 +145,7 @@ function wait(ms){
    }
  }
 
- // chucked everything in a function, potential higher success %
+// chucked everything in a function, potential higher success %
 async function info(message,person,CN){
     channelid = message.guild.channels.find(c => c.name === CN);
 
